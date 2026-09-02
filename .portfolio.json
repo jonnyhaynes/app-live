@@ -1,4 +1,4 @@
 {
-  "pitch": "app-live builds an Expo app locally with EAS and installs it onto whichever device you name — a physical device on your machine or a BrowserStack App Live cloud device. Ships as both an MCP server and a CLI.",
-  "challenge": "Making device routing invisible: one build_and_install call detects whether the named device is local — picking the right installer (devicectl / simctl / adb) — or falls back to BrowserStack, without the caller knowing where the device lives."
+  "pitch": "Builds an Expo app locally with EAS and installs it onto whichever device you name — physical or BrowserStack cloud. Ships as an MCP server and a CLI.",
+  "challenge": "Making device routing invisible: one call detects whether the named device is local and picks the right installer, or falls back to BrowserStack — the caller never knows where the device lives."
 }
