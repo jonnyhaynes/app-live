@@ -20,7 +20,7 @@ export interface Runtime {
   onOutput?: (chunk: string) => void;
 }
 
-function inferPlatform(input: BuildAndInstallInput): Platform {
+export function inferPlatform(input: BuildAndInstallInput): Platform {
   if (input.platform) return input.platform;
   // Guess from the device string; default to ios.
   return /android|pixel|galaxy|oneplus|nexus|emulator/i.test(input.device)
@@ -29,10 +29,15 @@ function inferPlatform(input: BuildAndInstallInput): Platform {
 }
 
 /** Pull an OS version out of a device string like "iPhone 15 Pro Max 17" or "... (17.0)". */
-function inferOsVersion(device: string, explicit?: string): string | undefined {
+export function inferOsVersion(device: string, explicit?: string): string | undefined {
   if (explicit) return explicit;
   const m = device.match(/\(?(\d+(?:\.\d+)?)\)?\s*$/);
   return m ? m[1] : undefined;
+}
+
+/** Strip a trailing OS version off a device string, e.g. "iPhone 15 (17.0)" → "iPhone 15". */
+export function stripOsVersion(device: string): string {
+  return device.replace(/\s*\(?\d+(\.\d+)?\)?\s*$/, "").trim();
 }
 
 export async function buildAndInstall(
@@ -81,7 +86,7 @@ export async function buildAndInstall(
   }
   const install = await installBrowserStack({
     artifactPath: build.artifactPath,
-    deviceName: input.device.replace(/\s*\(?\d+(\.\d+)?\)?\s*$/, "").trim(),
+    deviceName: stripOsVersion(input.device),
     platform,
     osVersion,
     mode: runtime.browserStackMode ?? "api",
