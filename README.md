@@ -1,5 +1,7 @@
 # app-live
 
+[![CI](https://github.com/jonnyhaynes/app-live/actions/workflows/ci.yml/badge.svg)](https://github.com/jonnyhaynes/app-live/actions/workflows/ci.yml)
+
 Build an [Expo](https://expo.dev) app locally with EAS, then install it onto the
 device you ask for — a **physical device connected to your machine**, or a
 **[BrowserStack App Live](https://www.browserstack.com/app-live) cloud device**.
